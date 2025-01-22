@@ -1,12 +1,10 @@
-import Navbar from "./components/Navbar"
+
+import React from "react";
+import Contact from "./components/Contact"
 
 function App() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
-    </div>
-  )
-}
+      <Contact />
 
 export default App
-
