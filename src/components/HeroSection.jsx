@@ -12,8 +12,8 @@ const HeroSection = () => {
           Re-allocate today, rediscover the treasures of tomorrow
         </p>
 
-        <div className="flex flex-col justify-center items-center gap-6" >
-          <div className="px-6 sm:px-8 md:px-10 py-6 sm:py-8 bg-[#7EDCE2] rounded-[20px]  text-[24px] sm:text-xl md:text-2xl font-medium text-center">
+        <div className="flex flex-col justify-center items-center gap-6">
+          <div className="px-6 sm:px-8 md:px-10 py-6 sm:py-8 bg-[#7EDCE2] rounded-[20px] text-[24px] sm:text-xl md:text-2xl font-medium text-center">
             Your reward is eager to be claimed <br />
             Claim Now
           </div>
@@ -25,7 +25,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="relative mt-[-218px] mb-[-48px]">
+      <div className="relative mt-[-218px] mb-[-48px] hidden sm:block">
         <img
           src="/BULIQ blue 1.png"
           alt="BULIQ Blue Logo"
