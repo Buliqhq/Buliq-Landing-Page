@@ -5,7 +5,7 @@ import { ArrowRight, Menu, X } from "lucide-react"
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="w-full border-b border-gray-200 bg-white">
+    <nav className="w-full border-b border-[#11323B] bg-[#EFF9FC]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
