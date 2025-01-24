@@ -5,7 +5,8 @@ const Footer = () => {
         <div className="flex items-center justify-between px-16 py-20">
           <div className="bg-[#98E5E5] w-[671px] px-8 py-10 rounded-[20px_20px_120px_0]">
             <h2 className="text-[32px] leading-[1.2] font-semibold mb-10">
-            Track your portfolio and give exclusive reward for smart re:allocation decision at BULIQ.
+              Track your portfolio and give exclusive reward for smart
+              re:allocation decision at BULIQ.
             </h2>
             <p className="text-xl mb-10">Ready to claim your points?</p>
             <button
@@ -45,9 +46,9 @@ const Footer = () => {
               backgroundImage: `url('/Rectangle 13.png')`,
               backgroundSize: "cover",
               backgroundPosition: "center top",
-              width:"1523px",
+              width: "1523px",
               height: "680px",
-              left:"-40px",
+              left: "-40px",
             }}
           ></div>
 

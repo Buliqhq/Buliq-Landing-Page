@@ -14,9 +14,24 @@ import { ArrowRight, Menu, X } from "lucide-react"
 
           <div className="hidden md:flex items-center space-x-4">
             <span className="text-lg text-gray-800">Ready To Earn Points?</span>
-            <button className="flex items-center space-x-2 bg-[#1E2959] text-white px-6 py-2 rounded-full hover:bg-[#161d3e] transition-colors">
-              <span>Claim Point</span>
-              <ArrowRight className="h-5 w-5" />
+            <button
+              className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0"
+            >
+              <span>Sign up for waitlists</span>
+              <svg
+                xmlns="http://www.w3.org/2003/svg"
+                viewBox="0 0 25 25"
+                fill="none"
+                className="w-6 h-6"
+              >
+                <path
+                  d="M12.5 16.2698L16.5 12.2698M16.5 12.2698L12.5 8.26978M16.5 12.2698H8.5M22.5 12.2698C22.5 17.7926 18.0228 22.2698 12.5 22.2698C6.97715 22.2698 2.5 17.7926 2.5 12.2698C2.5 6.74693 6.97715 2.26978 12.5 2.26978C18.0228 2.26978 22.5 6.74693 22.5 12.2698Z"
+                  stroke="#F5F5F5"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
 
@@ -40,9 +55,24 @@ import { ArrowRight, Menu, X } from "lucide-react"
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <div className="flex flex-col items-center space-y-4">
             <span className="text-lg text-gray-800">Ready To Earn Points?</span>
-            <button className="flex items-center space-x-2 bg-[#1E2959] text-white px-6 py-2 rounded-full hover:bg-[#161d3e] transition-colors">
-              <span>Claim Point</span>
-              <ArrowRight className="h-5 w-5" />
+            <button
+              className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0"
+            >
+              <span>Sign up for waitlists</span>
+              <svg
+                xmlns="http://www.w3.org/2003/svg"
+                viewBox="0 0 25 25"
+                fill="none"
+                className="w-6 h-6"
+              >
+                <path
+                  d="M12.5 16.2698L16.5 12.2698M16.5 12.2698L12.5 8.26978M16.5 12.2698H8.5M22.5 12.2698C22.5 17.7926 18.0228 22.2698 12.5 22.2698C6.97715 22.2698 2.5 17.7926 2.5 12.2698C2.5 6.74693 6.97715 2.26978 12.5 2.26978C18.0228 2.26978 22.5 6.74693 22.5 12.2698Z"
+                  stroke="#F5F5F5"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </div>
