@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         customBlue: '#16345A',
         customDarkGray: "#292929",
-        customLightBlue: '#EFF9FC',
+        customLightBlue: '#EFF9FC', 
       },
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
