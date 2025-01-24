@@ -12,8 +12,15 @@ module.exports = {
       },
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
+      backgroundColor: {
+        'EFF9FC': '#EFF9FC',
+
       },
     },
   },
   plugins: [],
-};
+
+},
+
+}
+
