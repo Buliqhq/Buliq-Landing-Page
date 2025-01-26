@@ -10,7 +10,7 @@ const ContactSection = () => {
             Need To Contact Us?
           </h2>
           <p className="mb-6 text-base md:text-lg lg:text-xl leading-6 text-customDarkGray">
-            Kindly fill out the form, we will get back to you immediately.
+            Kindly fill out the form, we will <br /> get back to you immediately.
           </p>
           <div className="flex items-center space-x-2">
             <svg
@@ -28,7 +28,7 @@ const ContactSection = () => {
               />
             </svg>
             <span className="text-customDarkGray text-sm md:text-lg leading-6">
-              example@gmail.com
+            buliq@gmail.com
             </span>
           </div>
         </div>
@@ -36,7 +36,7 @@ const ContactSection = () => {
         {/* Right Section */}
         <div className="bg-customBlue text-white rounded-[10px] p-6 md:p-8 lg:p-[50px] shadow-lg w-full max-w-[550px] mx-auto md:mx-0">
           <h3 className="text-2xl md:text-2xl font-semibold font-lato mb-6 md:mb-8 leading-8 md:leading-10">
-            Are you a protocol interested in example.com? <br />
+            Are you a protocol interested in Buliq.com? <br />
             <span className="font-light">Let's get in touch.</span>
           </h3>
           <form className="space-y-4 md:space-y-6 lg:space-y-[54px]">
@@ -90,6 +90,16 @@ const ContactSection = () => {
                 placeholder="Write your message..."
               ></textarea>
             </div>
+
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="w-full max-w-[325px] h-[50px] sm:h-[60px] mt-[20px] sm:mt-[30px] px-0 py-[10px] text-[#16345A] text-base sm:text-lg bg-[#83DDE3] rounded-full border border-[#EFF9FC] hover:opacity-90 transition-opacity duration-300"
+              >
+                Enter
+              </button>
+            </div>
+
           </form>
         </div>
       </div>
