@@ -2,42 +2,43 @@ const Footer = () => {
   return (
     <footer className="relative w-full bg-[#1E1E1E]">
       <div className="max-w-[1440px] mx-auto">
-        <div className="flex items-center justify-between px-16 py-20">
-          <div className="bg-[#98E5E5] w-[671px] px-8 py-10 rounded-[20px_20px_120px_0]">
-            <h2 className="text-[32px] leading-[1.2] font-semibold mb-10">
-              Track your portfolio and give exclusive reward for smart
-              re:allocation decision at BULIQ.
-            </h2>
-            <p className="text-xl mb-10">Ready to claim your points?</p>
-            <button
-              className="bg-[#1E293B] text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-[#2d3748] transition-colors"
-              aria-label="Swipe to learn more"
-            >
-              Swipe to learn more
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  d="M9 6l6 6-6 6"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
+      <div className="flex flex-wrap items-center justify-between px-6 py-10 lg:px-16 lg:py-20">
+  <div className="bg-[#98E5E5] w-full lg:w-[671px] px-6 py-8 lg:px-8 lg:py-10 rounded-[20px_20px_120px_0] mb-10 lg:mb-0">
+    <h2 className="text-[24px] lg:text-[32px] leading-[1.2] font-semibold mb-6 lg:mb-10">
+      Track your portfolio and give exclusive rewards for smart
+      re:allocation decisions at BULIQ.
+    </h2>
+    <p className="text-base lg:text-xl mb-6 lg:mb-10">
+      Ready to claim your points?
+    </p>
+    <button className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-4 py-2 lg:px-6 lg:py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0">
+      <span>Swipe to learn more</span>
+      <svg
+        xmlns="http://www.w3.org/2003/svg"
+        viewBox="0 0 25 25"
+        fill="none"
+        className="w-5 h-5 lg:w-6 lg:h-6"
+      >
+        <path
+          d="M12.5 16.2698L16.5 12.2698M16.5 12.2698L12.5 8.26978M16.5 12.2698H8.5M22.5 12.2698C22.5 17.7926 18.0228 22.2698 12.5 22.2698C6.97715 22.2698 2.5 17.7926 2.5 12.2698C2.5 6.74693 6.97715 2.26978 12.5 2.26978C18.0228 2.26978 22.5 6.74693 22.5 12.2698Z"
+          stroke="#F5F5F5"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
 
-          <div className="relative w-[423px] h-[592px]">
-            <img
-              src="/Group 9.png"
-              alt="Glowing cylinder"
-              className="w-full h-full object-contain"
-            />
-          </div>
-        </div>
+  <div className="relative w-full lg:w-[423px] h-[300px] lg:h-[592px]">
+    <img
+      src="/Group 9.png"
+      alt="Glowing cylinder"
+      className="w-full h-full object-contain"
+    />
+  </div>
+</div>
+
 
         <div className="relative">
           <div
@@ -137,12 +138,6 @@ const Footer = () => {
                 className="text-gray-800 hover:text-[#3B82F6] transition-colors"
               >
                 Contact
-              </a>
-              <a
-                href="#"
-                className="text-gray-800 hover:text-[#3B82F6] transition-colors"
-              >
-                Work with us
               </a>
             </nav>
 

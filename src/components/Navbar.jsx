@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ArrowRight, Menu, X } from "lucide-react"
+import {  Menu, X } from "lucide-react"
 
  function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
