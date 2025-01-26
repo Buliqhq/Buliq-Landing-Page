@@ -1,10 +1,12 @@
 import React from "react";
 import Contact from "./components/Contact";
 import Feature from "./components/Feature";
+
 import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 import ValueSection from "./components/ValueSection";
 import Navbar from "./components/Navbar"; 
+
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <HeroSection />
         <ValueSection />
         <Contact />
+
+
         <Feature />
       </main>
       <Footer />
@@ -22,3 +26,5 @@ function App() {
 }
 
 export default App;
+
+
