@@ -9,8 +9,8 @@ const ContactSection = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-customDarkGray mb-4 font-lato leading-10">
             Need To Contact Us?
           </h2>
-          <p className="mb-6 text-base md:text-lg lg:text-xl leading-6 text-customDarkGray">
-            Kindly fill out the form, we will <br /> get back to you immediately.
+          <p className="mb-6 text-base md:text-lg lg:text-xl leading-6 text-customDarkGray sm:w-full">
+            Kindly fill out the form, we will <br/> get back to you immediately.
           </p>
           <div className="flex items-center space-x-2">
             <svg
@@ -94,7 +94,7 @@ const ContactSection = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-full max-w-[325px] h-[50px] sm:h-[60px] mt-[20px] sm:mt-[30px] px-0 py-[10px] text-[#16345A] text-base sm:text-lg bg-[#83DDE3] rounded-full border border-[#EFF9FC] hover:opacity-90 transition-opacity duration-300"
+                className="w-[225px] h-[60px] sm:h-[60px] mt-[30px] sm:mt-[30px] px-0 py-[10px] text-[#16345A] text-base sm:text-lg bg-[#83DDE3] rounded-full border border-[#EFF9FC] hover:opacity-90 transition-opacity duration-300"
               >
                 Enter
               </button>

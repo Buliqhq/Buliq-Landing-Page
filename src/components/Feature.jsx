@@ -39,7 +39,7 @@ const FeatureSection = () => {
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="flex flex-col lg:flex-row items-center justify-between space-x-0 lg:space-x-16">
           <div className="bg-[#7FDCE2] shadow-lg rounded-[20px_20px_120px_0px] p-6 sm:p-8 md:p-10 w-full max-w-[520px] mb-6 lg:mb-0">
-            <h2 className="text-3xl font-bold text-[#234256] mb-6 leading-tight text-center lg:text-left">
+            <h2 className="text-3xl  font-bold text-[#234256] mb-6 leading-tight text-center lg:text-left">
               SEAMLESSLY RE:ALLOCATE
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-[#292929] mb-8 leading-relaxed text-center lg:text-left">
@@ -48,6 +48,7 @@ const FeatureSection = () => {
             </p>
             <button
               className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0"
+
             >
               <span>Sign up for waitlists</span>
               <svg
@@ -67,11 +68,12 @@ const FeatureSection = () => {
             </button>
           </div>
 
-          <div className="w-full max-w-[424px]">
+          <div className="w-full sm:w-[400px] lg:w-[424px] mx-auto mt-6 sm:mt-0">
             <div
-              className="sm:h-[400px] lg:h-[512px] rounded-full bg-cover bg-center shadow-lg"
+              className="h-[300px] sm:h-[400px] lg:h-[512px] rounded-full bg-cover bg-center shadow-lg"
               style={{
                 backgroundImage: `url(${featureImage})`,
+                backgroundSize: "conver",
               }}
             />
           </div>
@@ -79,12 +81,10 @@ const FeatureSection = () => {
 
         {/* Cards Section */}
         <div className="relative mt-24">
-        <div className="w-full h-2 mb-12"></div> 
+          <div className="w-full h-2 "></div>
           <div
-            className="text-center mx-auto px-4 sm:px-6 lg:px-0 relative z-0"
+            className="text-center mx-auto px-4 sm:px-6 lg:px-0 relative z-0 w-full"
             style={{
-              width: "90%",
-              maxWidth: "1200px",
               height: "442px",
               gap: "0px",
               borderRadius: "0px 0px 100px 100px",
@@ -93,24 +93,19 @@ const FeatureSection = () => {
             }}
           >
             <h3
-              className="my-10"
-              style={{
-                fontFamily: "Lato, sans-serif",
-                fontSize: "35px",
-                fontWeight: "500",
-                lineHeight: "48px",
-                color: "#F5F5F5",
-              }}
+              className="my-6 
+              text-center text-lg sm:text-2xl md:text-4xl font-bold text-[#F5F5F5] leading-[28.8px] sm:leading-[40px] md:leading-[48px] font-lato"
             >
               The Ultimate Layer for Asset Re:allocation
             </h3>
 
+
             <p
-              className="mb-12"
+              className=""
               style={{
                 fontFamily: "Open Sans, sans-serif",
-                fontSize: "16px",
-                fontWeight: "400",
+                fontSize: "18px",
+                fontWeight: "300",
                 lineHeight: "24px",
                 textAlign: "center",
                 color: "#F5F5F5",
@@ -128,15 +123,16 @@ const FeatureSection = () => {
               slidesPerView={1}
               spaceBetween={20}
               navigation
+
               pagination={{ clickable: true }}
               breakpoints={{
                 640: {
-                  slidesPerView: 2,
-                  spaceBetween: 30,
+                  slidesPerView: 3,
+                  spaceBetween: 25,
                 },
                 1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 50,
+                  slidesPerView: 4,
+                  spaceBetween: 35,
                 },
               }}
               className="mySwiper"
@@ -144,16 +140,15 @@ const FeatureSection = () => {
               {cards.map((card, index) => (
                 <SwiperSlide key={index}>
                   <div
-                    className=" rounded-3xl"
-
+                    className="rounded-3xl w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto"
                   >
                     <img
                       src={card.imgSrc}
                       alt="image"
-                      className="w-full h-auto object-cover"
-
+                      className="w-full h-full object-cover rounded-3xl"
                     />
                   </div>
+
 
                 </SwiperSlide>
               ))}
