@@ -28,7 +28,7 @@ const ContactSection = () => {
               />
             </svg>
             <span className="text-customDarkGray text-sm md:text-lg leading-6">
-            buliq@gmail.com
+            @buliq.xyz
             </span>
           </div>
         </div>
@@ -36,7 +36,7 @@ const ContactSection = () => {
         {/* Right Section */}
         <div className="bg-customBlue text-white rounded-[10px] p-6 md:p-8 lg:p-[50px] shadow-lg w-full max-w-[550px] mx-auto md:mx-0">
           <h3 className="text-2xl md:text-2xl font-semibold font-lato mb-6 md:mb-8 leading-8 md:leading-10">
-            Are you a protocol interested in Buliq.com? <br />
+            Are you a protocol interested in @buliq.xyz? <br />
             <span className="font-light">Let's get in touch.</span>
           </h3>
           <form className="space-y-4 md:space-y-6 lg:space-y-[54px]">

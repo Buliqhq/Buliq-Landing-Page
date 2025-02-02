@@ -2,47 +2,33 @@ const Footer = () => {
   return (
     <footer className="relative w-full bg-[#1E1E1E]">
       <div className="max-w-[1440px] mx-auto">
-      <div className="flex flex-wrap items-center justify-between px-6 py-10 lg:px-16 lg:py-20">
-  <div className="bg-[#98E5E5] w-full lg:w-[671px] px-6 py-8 lg:px-8 lg:py-10 rounded-[20px_20px_120px_0] mb-10 lg:mb-0">
-    <h2 className="text-[24px] lg:text-[32px] leading-[1.2] font-semibold mb-6 lg:mb-10">
-      Track your portfolio and give exclusive rewards for smart
-      re:allocation decisions at BULIQ.
-    </h2>
-    <p className="text-base lg:text-xl mb-6 lg:mb-10">
-      Ready to claim your points?
-    </p>
-    <button className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-4 py-2 lg:px-6 lg:py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0">
-      <span>Swipe to learn more</span>
-      <svg
-        xmlns="http://www.w3.org/2003/svg"
-        viewBox="0 0 25 25"
-        fill="none"
-        className="w-5 h-5 lg:w-6 lg:h-6"
-      >
-        <path
-          d="M12.5 16.2698L16.5 12.2698M16.5 12.2698L12.5 8.26978M16.5 12.2698H8.5M22.5 12.2698C22.5 17.7926 18.0228 22.2698 12.5 22.2698C6.97715 22.2698 2.5 17.7926 2.5 12.2698C2.5 6.74693 6.97715 2.26978 12.5 2.26978C18.0228 2.26978 22.5 6.74693 22.5 12.2698Z"
-          stroke="#F5F5F5"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </button>
-  </div>
+        <div className="flex flex-wrap items-center justify-between px-6 py-10 lg:px-16 lg:py-20">
+          <div className="bg-[#98E5E5] w-full lg:w-[671px] px-6 py-8 lg:px-8 lg:py-10 rounded-[20px_20px_120px_0] mb-10 lg:mb-0">
+            <h2 className="text-[24px] lg:text-[32px] leading-[1.2] font-semibold mb-6 lg:mb-10">
+              Track your portfolio and give exclusive rewards for smart
+              re:allocation decisions at BULIQ.
+            </h2>
+            <p className="text-base lg:text-xl mb-6 lg:mb-10">
+              Ready to claim your points?
+            </p>
+            <button className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0">
+              <span>Swipe to learn more</span>
+            </button>
 
-  <div className="relative w-full lg:w-[423px] h-[300px] lg:h-[592px]">
-    <img
-      src="/Group 9.png"
-      alt="Glowing cylinder"
-      className="w-full h-full object-contain"
-    />
-  </div>
-</div>
+          </div>
 
+          <div className="relative w-full lg:w-[423px] h-[300px] lg:h-[592px]">
+            <img
+              src="/Group 9.png"
+              alt="Glowing cylinder"
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
 
         <div className="relative">
           <div
-            className="absolute  top-[-250px]"
+            className="absolute top-[-40px] sm:top-[-120px]"
             style={{
               backgroundImage: `url('/Rectangle 13.png')`,
               backgroundSize: "cover",
@@ -55,72 +41,9 @@ const Footer = () => {
 
           <div className="relative pt-20 pb-12">
             <div className="grid grid-cols-3 gap-8 max-w-4xl mx-auto text-center mb-16">
-              <div>
-                <svg
-                  className="w-6 h-6 mx-auto mb-3"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <rect
-                    x="2"
-                    y="4"
-                    width="20"
-                    height="16"
-                    rx="2"
-                    strokeWidth="2"
-                  />
-                  <path d="M22 4l-10 8L2 4" strokeWidth="2" />
-                </svg>
-                <a
-                  href="mailto:example@gmail.com"
-                  className="text-[#3B82F6] hover:underline block mb-1"
-                >
-                  example@gmail.com
-                </a>
-                <span className="text-gray-800">Mail</span>
-              </div>
-
-              <div>
-                <svg
-                  className="w-6 h-6 mx-auto mb-3"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                  <path d="M2 12h20" strokeWidth="2" />
-                  <path
-                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                    strokeWidth="2"
-                  />
-                </svg>
-                <span className="text-[#3B82F6] block mb-1">
-                  Lorem ipsum dolor si amet
-                </span>
-                <span className="text-gray-800">Address</span>
-              </div>
-
-              <div>
-                <svg
-                  className="w-6 h-6 mx-auto mb-3"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
-                    strokeWidth="2"
-                  />
-                </svg>
-                <span className="text-[#3B82F6] block mb-1">
-                  +234 91 5766 8774
-                </span>
-                <span className="text-gray-800">Phone</span>
-              </div>
             </div>
 
-            <nav className="flex justify-center gap-12 mb-12">
+            <nav className="grid grid-rows-3 place-items-center gap-4 mb-12 sm:flex sm:justify-center sm:gap-12">
               <a
                 href="#"
                 className="text-gray-800 hover:text-[#3B82F6] transition-colors"
@@ -141,7 +64,7 @@ const Footer = () => {
               </a>
             </nav>
 
-            <div className="flex justify-center gap-6 mb-8">
+            <div className="grid grid-rows-2 place-items-center gap-4 mb-8 sm:flex sm:justify-center sm:gap-6">
               <a
                 href="#"
                 className="text-[#3B82F6] hover:opacity-80 transition-opacity"
@@ -169,8 +92,7 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-
-            <p className="text-center text-gray-800">
+            <p className="text-center text-gray-800 mt-10">
               Copyright © 2025 Example. All rights reserved.
             </p>
           </div>
