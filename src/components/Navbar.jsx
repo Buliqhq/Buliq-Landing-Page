@@ -1,9 +1,15 @@
 import { useState } from "react"
-import {  Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
- function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(true)
+
+  const [formData, setFormData] = useState({ name: "", email: "" });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
   return (
     <nav className="w-full border-b border-[#11323B] bg-[#EFF9FC]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,23 +21,12 @@ import {  Menu, X } from "lucide-react"
           <div className="hidden md:flex items-center space-x-4">
             <span className="text-lg text-gray-800">Ready To Earn Points?</span>
             <button
-              className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0"
+              className="flex items-center justify-center 
+              font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] 
+              rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0"
+              
             >
-              <span>Sign up for waitlists</span>
-              <svg
-                xmlns="http://www.w3.org/2003/svg"
-                viewBox="0 0 25 25"
-                fill="none"
-                className="w-6 h-6"
-              >
-                <path
-                  d="M12.5 16.2698L16.5 12.2698M16.5 12.2698L12.5 8.26978M16.5 12.2698H8.5M22.5 12.2698C22.5 17.7926 18.0228 22.2698 12.5 22.2698C6.97715 22.2698 2.5 17.7926 2.5 12.2698C2.5 6.74693 6.97715 2.26978 12.5 2.26978C18.0228 2.26978 22.5 6.74693 22.5 12.2698Z"
-                  stroke="#F5F5F5"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <span>Join waitlists</span>
             </button>
           </div>
 
@@ -52,31 +47,56 @@ import {  Menu, X } from "lucide-react"
       </div>
 
       <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <div className="flex flex-col items-center space-y-4">
-            <span className="text-lg text-gray-800">Ready To Earn Points?</span>
-            <button
-              className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0"
-            >
-              <span>Sign up for waitlists</span>
-              <svg
-                xmlns="http://www.w3.org/2003/svg"
-                viewBox="0 0 25 25"
-                fill="none"
-                className="w-6 h-6"
-              >
-                <path
-                  d="M12.5 16.2698L16.5 12.2698M16.5 12.2698L12.5 8.26978M16.5 12.2698H8.5M22.5 12.2698C22.5 17.7926 18.0228 22.2698 12.5 22.2698C6.97715 22.2698 2.5 17.7926 2.5 12.2698C2.5 6.74693 6.97715 2.26978 12.5 2.26978C18.0228 2.26978 22.5 6.74693 22.5 12.2698Z"
-                  stroke="#F5F5F5"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+        <div className="flex items-center justify-center min-h-screen px-4">
+          <div className="bg-[#D7EFF6] rounded-lg shadow-lg p-8 w-full max-w-5xl grid grid-cols-2 md:grid-cols-2 gap-10 md:gap-20">
+
+            {/* Left Side - Logo & Illustration */}
+            <div className="flex flex-col items-center justify-center space-y-6">
+              {/* Logo */}
+              <img src="/logo.png" alt="Buliq Logo" className="h-16 w-auto" />
+
+              {/* Illustration */}
+              <img src="/public/Group.png" alt="Human Only Illustration" className="w-64 md:w-80 lg:w-96" />
+            </div>
+
+            {/* Right Side Form */}
+            <div className="flex flex-col justify-center w-full">
+              <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center md:text-left">Join the waitlist</h2>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-medium mb-1">Full name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="name"
+                  className="w-full bg-white text-gray-700 px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ECEF2]"
                 />
-              </svg>
-            </button>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-medium mb-1">Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="email"
+                  className="w-full px-2 py-1 bg-white text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ECEF2]"
+                />
+              </div>
+
+              {/* Button */}
+              <button className="w-full bg-[#16345A] text-white font-semibold py-3 rounded-full mt-4 hover:bg-opacity-80 transition">
+                Next
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
+
     </nav>
   )
 }

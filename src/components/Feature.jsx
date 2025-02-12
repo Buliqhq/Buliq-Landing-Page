@@ -70,9 +70,8 @@ const FeatureSection = () => {
         <div className="relative mt-24">
           <div className="w-full h-2 "></div>
           <div
-            className="text-center mx-auto px-4 sm:px-6 lg:px-0 relative z-0 w-full"
+            className="text-center mx-auto px-4 sm:px-6 lg:px-0 relative z-0 w-full h-[300px] lg:h-[400px]"
             style={{
-              height: "442px",
               gap: "0px",
               borderRadius: "0px 0px 100px 100px",
               border: "2px solid #2ECEF2",
