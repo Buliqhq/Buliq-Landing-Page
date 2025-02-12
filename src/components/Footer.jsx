@@ -93,7 +93,7 @@ const Footer = () => {
               </a>
             </div>
             <p className="text-center text-gray-800 mt-10">
-              Copyright © 2025 Example. All rights reserved.
+              Copyright © 2025 @buliq.xyz. All rights reserved.
             </p>
           </div>
         </div>
