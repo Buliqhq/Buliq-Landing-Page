@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import { useState } from "react"
 
 const isDevelopment = window.location.hostname === 'localhost'
-const API_URL = isDevelopment ? 'http://localhost:3000' : ''
+const API_URL = isDevelopment ? 'http://localhost:3000' : 'https://backend-psi-five-12.vercel.app/'
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })

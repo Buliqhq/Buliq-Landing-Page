@@ -9,6 +9,7 @@ const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:3000",
   "https://buliq.vercel.app",
+  // "https://backend-psi-five-12.vercel.app/"
 ];
 
 app.use(
