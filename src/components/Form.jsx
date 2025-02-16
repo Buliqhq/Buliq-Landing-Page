@@ -23,11 +23,6 @@ function Form({ isOpen, onClose }) {
     setIsLoading(true)
     setError("")
 
-    if (!isDevelopment) {
-      setError("Waitlist signup is temporarily unavailable. Please try again later.")
-      setIsLoading(false)
-      return
-    }
 
     try {
       const response = await fetch(`${API_URL}/api/waitlist`, {
