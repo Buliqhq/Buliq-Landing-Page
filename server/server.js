@@ -1,68 +1,71 @@
-const express = require('express');
-const cors = require('cors');
-const { GoogleSpreadsheet } = require('google-spreadsheet');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const { GoogleSpreadsheet } = require("google-spreadsheet");
+require("dotenv").config();
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:5174",
+  "http://localhost:3000",
+  "https://buliq.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
-// Initialize the sheet
-const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
-const CREDENTIALS = {
-  client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-  private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, '\n')
-};
-
-const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
+const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
 
 const init = async () => {
   try {
-    // Initialize Auth
-    await doc.useServiceAccountAuth(CREDENTIALS);
-    
-    // Load the sheet
-    await doc.loadInfo();
-    
-    // Get the first sheet
-    const sheet = doc.sheetsByIndex[0];
-    
-    // Make sure we have the headers
-    await sheet.setHeaderRow(['Timestamp', 'Name', 'Email']);
-    
-    console.log('Google Sheets connected!');
-  } catch (error) {
-    console.error('Error connecting to Google Sheets:', error);
-    console.error('Credentials being used:', {
-      spreadsheetId: SPREADSHEET_ID,
-      clientEmail: CREDENTIALS.client_email,
-      privateKeyLength: CREDENTIALS.private_key ? CREDENTIALS.private_key.length : 0
+    await doc.useServiceAccountAuth({
+      client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+      private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, "\n"),
     });
+    await doc.loadInfo();
+    console.log("Google Sheets connected!");
+  } catch (error) {
+    console.error("Error connecting to Google Sheets:", error);
   }
 };
 
 init();
 
-app.post('/api/waitlist', async (req, res) => {
+app.post("/api/waitlist", async (req, res) => {
   try {
     const { name, email } = req.body;
 
     if (!name || !email) {
-      return res.status(400).json({ error: 'Name and email are required' });
+      return res.status(400).json({ error: "Name and email are required" });
     }
 
     const sheet = doc.sheetsByIndex[0];
-    
+
     await sheet.addRow({
       Timestamp: new Date().toISOString(),
       Name: name,
-      Email: email
+      Email: email,
     });
 
     res.json({ success: true });
   } catch (error) {
-    console.error('Error adding row:', error);
-    res.status(500).json({ error: 'Failed to add to waitlist' });
+    console.error("Error:", error);
+    res.status(500).json({ error: "Failed to add to waitlist" });
   }
 });
 
