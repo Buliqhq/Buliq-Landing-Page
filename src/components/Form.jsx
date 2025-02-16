@@ -1,8 +1,10 @@
 import { X } from 'lucide-react'
 import { useState } from "react"
 
+// Check if in development mode
 const isDevelopment = window.location.hostname === 'localhost'
-const API_URL = isDevelopment ? 'http://localhost:3000' : 'https://backend-psi-five-12.vercel.app/'
+// Use relative path for production to avoid CORS issues
+const API_URL = isDevelopment ? 'http://localhost:3000' : '/'
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })
@@ -23,9 +25,9 @@ function Form({ isOpen, onClose }) {
     setIsLoading(true)
     setError("")
 
-
     try {
-      const response = await fetch(`${API_URL}/api/waitlist`, {
+      // Using relative path to avoid CORS issues on Vercel
+      const response = await fetch(`/api/waitlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
