@@ -25,10 +25,10 @@ function Navbar() {
     <>
       <nav className="w-full border-b border-[#11323B] bg-[#EFF9FC]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16"> {/* Reduced height */}
             {/* Logo */}
             <div className="flex items-center">
-              <img src="/logo.png" alt="Buliq Logo" className="h-13 w-full" />
+              <img src="/logo.png" alt="Buliq Logo" className="h-10 w-auto" /> {/* Reduced logo size */}
             </div>
 
             {/* Desktop Navigation */}
@@ -97,4 +97,3 @@ function Navbar() {
 }
 
 export default Navbar
-

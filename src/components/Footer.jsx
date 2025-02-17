@@ -10,9 +10,7 @@ const Footer = () => {
               Track your portfolio and give exclusive rewards for smart re:allocation decisions at BULIQ.
             </h2>
             <p className="text-base lg:text-lg mb-4 lg:mb-6">Ready to claim your points?</p>
-            <button className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0">
-              <span>Swipe to learn more</span>
-            </button>
+           
           </div>
 
           {/* Right image */}
