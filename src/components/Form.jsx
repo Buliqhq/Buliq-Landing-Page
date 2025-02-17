@@ -1,66 +1,65 @@
-import { X } from 'lucide-react'
-import { useState } from "react"
+import { X } from "lucide-react";
+import { useState } from "react";
 
 // Check if in development mode
-const isDevelopment = window.location.hostname === 'localhost'
+const isDevelopment = window.location.hostname === "localhost";
 // Use relative path for production to avoid CORS issues
-const API_URL = isDevelopment ? 'http://localhost:3000' : '/'
+const API_URL = isDevelopment ? "http://localhost:3000" : "/";
 
 function Form({ isOpen, onClose }) {
-  const [formData, setFormData] = useState({ name: "", email: "" })
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState(false)
+  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     try {
       // Using relative path to avoid CORS issues on Vercel
       const response = await fetch(`/api/waitlist`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong')
+        throw new Error(data.error || "Something went wrong");
       }
 
-      setSuccess(true)
+      setSuccess(true);
       setTimeout(() => {
-        onClose()
-        setSuccess(false)
-        setFormData({ name: "", email: "" })
-      }, 2000)
-
+        onClose();
+        setSuccess(false);
+        setFormData({ name: "", email: "" });
+      }, 2000);
     } catch (err) {
-      console.error('Submission error:', err)
+      console.error("Submission error:", err);
       setError(
-        err.message === 'Failed to fetch' 
+        err.message === "Failed to fetch"
           ? "Unable to connect to the server. Please check your internet connection."
           : "Unable to join waitlist at this time. Please try again later."
-      )
+      );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
@@ -76,20 +75,23 @@ function Form({ isOpen, onClose }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-20 p-6 md:p-8">
           {/* Left Side - Logo & Illustration */}
           <div className="flex flex-col items-center justify-center space-y-4 md:space-y-6">
-            <img 
-              src="/logo.png" 
-              alt="Buliq Logo" 
-              className="h-12 md:h-16 w-auto" 
+            <img
+              src="/logo.png"
+              alt="Buliq Logo"
+              className="h-12 md:h-16 w-auto"
             />
-            <img 
-              src="/Group.png" 
-              alt="Human Only Illustration" 
-              className="w-52 sm:w-64 md:w-80 lg:w-96" 
+            <img
+              src="/Group.png"
+              alt="Human Only Illustration"
+              className="w-52 sm:w-64 md:w-80 lg:w-96"
             />
           </div>
 
           {/* Right Side Form */}
-          <form onSubmit={handleSubmit} className="flex flex-col justify-center w-full">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col justify-center w-full"
+          >
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4 md:mb-6 text-center md:text-left">
               Join the waitlist
             </h2>
@@ -138,28 +140,44 @@ function Form({ isOpen, onClose }) {
               />
             </div>
 
-            <button 
+            <button
               type="submit"
               disabled={isLoading}
               className="w-full bg-[#16345A] text-white font-semibold py-2.5 md:py-3 rounded-full mt-4 hover:bg-opacity-80 transition disabled:opacity-50 text-sm md:text-base"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
                   </svg>
                   Submitting...
                 </span>
               ) : (
-                "Next"
+                "Submit"
               )}
             </button>
           </form>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Form
+export default Form;

@@ -17,11 +17,11 @@ const HeroSection = () => {
             Claim Now
           </div>
 
-          <button
+          {/* <button
               className="flex items-center justify-center font-semibold shadow-md bg-[#16345A] text-[#F5F5F5] rounded-full px-6 py-3 space-x-2 hover:bg-opacity-80 transition-colors duration-300 mx-auto lg:mx-0"
             >
               <span>Sign up for waitlists</span>
-            </button>
+            </button> */}
         </div>
       </div>
 
