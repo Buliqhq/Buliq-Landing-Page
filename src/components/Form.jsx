@@ -3,10 +3,8 @@
 import { X } from "lucide-react"
 import { useState } from "react"
 
-// Check if in development mode
-const isDevelopment = process.env.NODE_ENV === "development"
 // Use the correct API URL based on the environment
-const API_URL = isDevelopment ? "http://localhost:3000" : "https://your-production-api-url.com"
+const API_URL = import.meta.env.VITE_API_URL || "https://buliq.vercel.app/api"
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })
@@ -29,7 +27,7 @@ function Form({ isOpen, onClose }) {
 
     try {
       console.log("Submitting form data:", formData)
-      const response = await fetch(`${API_URL}/api/waitlist`, {
+      const response = await fetch(`${API_URL}/waitlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
