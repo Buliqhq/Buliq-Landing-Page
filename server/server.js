@@ -5,25 +5,38 @@ require("dotenv").config()
 
 const app = express()
 
+// Update allowedOrigins to include both the Vite development port and production URL
 const allowedOrigins = [
-  "http://localhost:5174", // Vite's default development port
+  "http://localhost:5174", // Vite development port
+  "http://localhost:5173", // Alternative Vite port
+  "http://127.0.0.1:5174",
+  "http://127.0.0.1:5173",
   "https://buliq.vercel.app",
-  // Add any other origins that need access
 ]
 
+// Update CORS configuration to be more permissive in development
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true)
+
+      if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true)
       } else {
+        console.log("Blocked origin:", origin)
         callback(new Error("Not allowed by CORS"))
       }
     },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   }),
 )
 
+// Ensure this comes after CORS middleware
 app.use(express.json())
 
 const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID)
@@ -42,6 +55,9 @@ const init = async () => {
 }
 
 init()
+
+// Add OPTIONS handler for preflight requests
+app.options("/api/waitlist", cors())
 
 app.post("/api/waitlist", async (req, res) => {
   console.log("Received waitlist request")
@@ -71,7 +87,10 @@ app.post("/api/waitlist", async (req, res) => {
 })
 
 const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+  console.log("Allowed origins:", allowedOrigins)
+})
 
 module.exports = app
 
