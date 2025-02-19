@@ -4,7 +4,7 @@ import { X } from "lucide-react"
 import { useState } from "react"
 
 // Use the correct API URL based on the environment
-const API_URL = import.meta.env.VITE_API_URL || "https://buliq.vercel.app/api"
+const API_URL = import.meta.env.VITE_API_URL || "https://buliq.vercel.app"
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })
