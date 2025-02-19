@@ -4,7 +4,9 @@ import { X } from "lucide-react"
 import { useState } from "react"
 
 // Use the correct API URL based on the environment
-const API_URL = import.meta.env.VITE_API_URL || "https://buliq.vercel.app"
+const API_URL = import.meta.env.DEV
+  ? "http://localhost:3000" // Development API URL
+  : "https://buliq.vercel.app" // Production API URL
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })
@@ -27,11 +29,12 @@ function Form({ isOpen, onClose }) {
 
     try {
       console.log("Submitting form data:", formData)
-      const response = await fetch(`${API_URL}/waitlist`, {
+      const response = await fetch(`${API_URL}/api/waitlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // Include credentials for CORS
         body: JSON.stringify(formData),
       })
 
@@ -61,7 +64,11 @@ function Form({ isOpen, onClose }) {
       }, 2000)
     } catch (err) {
       console.error("Submission error:", err)
-      setError(err.message || "Unable to join waitlist at this time. Please try again later.")
+      if (err.message.includes("Failed to fetch")) {
+        setError("Unable to connect to the server. Please check if the server is running.")
+      } else {
+        setError(err.message || "Unable to join waitlist at this time. Please try again later.")
+      }
     } finally {
       setIsLoading(false)
     }
