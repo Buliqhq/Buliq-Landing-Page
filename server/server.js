@@ -6,7 +6,7 @@ require("dotenv").config()
 const app = express()
 
 const allowedOrigins = [
-  "http://localhost:5173", // Vite's default development port
+  "http://localhost:5174", // Vite's default development port
   "https://buliq.vercel.app",
   // Add any other origins that need access
 ]
