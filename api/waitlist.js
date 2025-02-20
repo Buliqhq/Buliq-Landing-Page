@@ -10,18 +10,32 @@ function setCorsHeaders(res) {
   )
 }
 
-// Function to properly format the private key
-function formatPrivateKey(key) {
-  if (!key) return ""
+// Enhanced private key formatting
+function formatPrivateKey(privateKey) {
+  if (!privateKey) return null
 
-  // Remove any existing newlines and quotes
-  const cleanKey = key.replace(/\\n/g, "").replace(/\n/g, "").replace(/"/g, "").trim()
+  // If the key is already properly formatted with headers, just clean up newlines
+  if (privateKey.includes("-----BEGIN PRIVATE KEY-----")) {
+    return privateKey.replace(/\\n/g, "\n").replace(/\n\n/g, "\n") // Remove double newlines
+  }
 
-  // Split the key into 64-character chunks
-  const chunks = cleanKey.match(/.{1,64}/g) || []
+  try {
+    // Try parsing if it's a JSON string
+    const parsed = JSON.parse(privateKey)
+    return parsed.replace(/\\n/g, "\n")
+  } catch {
+    // If not JSON, clean up the key and format it
+    const cleaned = privateKey
+      .replace(/-----(BEGIN|END) PRIVATE KEY-----/g, "")
+      .replace(/\\n/g, "")
+      .replace(/\n/g, "")
+      .replace(/\s+/g, "")
+      .trim()
 
-  // Join chunks with actual newlines
-  return `-----BEGIN PRIVATE KEY-----\n${chunks.join("\n")}\n-----END PRIVATE KEY-----`
+    // Format with proper headers and 64-character lines
+    const lines = cleaned.match(/.{1,64}/g) || []
+    return ["-----BEGIN PRIVATE KEY-----", ...lines, "-----END PRIVATE KEY-----"].join("\n")
+  }
 }
 
 export default async function handler(req, res) {
@@ -34,7 +48,6 @@ export default async function handler(req, res) {
     return
   }
 
-  // Only allow POST requests
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" })
   }
@@ -46,36 +59,62 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Name and email are required" })
     }
 
-    // Get and format credentials
+    // Get environment variables
     const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL
-    const privateKey = formatPrivateKey(process.env.GOOGLE_SHEETS_PRIVATE_KEY)
+    const privateKeyRaw = process.env.GOOGLE_SHEETS_PRIVATE_KEY
     const sheetId = process.env.GOOGLE_SHEET_ID
 
-    // Verify credentials
-    if (!clientEmail || !privateKey || !sheetId) {
-      console.error("Missing credentials:", {
-        hasEmail: !!clientEmail,
-        hasKey: !!privateKey,
-        hasSheetId: !!sheetId,
-      })
+    // Log environment variable presence (not values)
+    console.log("Environment variables check:", {
+      hasClientEmail: !!clientEmail,
+      hasPrivateKey: !!privateKeyRaw,
+      hasSheetId: !!sheetId,
+    })
+
+    if (!clientEmail || !privateKeyRaw || !sheetId) {
       return res.status(500).json({
         error: "Server configuration error",
-        details: "Missing required credentials",
+        details: "Missing required environment variables",
+      })
+    }
+
+    // Format the private key
+    const privateKey = formatPrivateKey(privateKeyRaw)
+
+    if (!privateKey) {
+      return res.status(500).json({
+        error: "Server configuration error",
+        details: "Invalid private key format",
       })
     }
 
     // Initialize Google Sheets
     const doc = new GoogleSpreadsheet(sheetId)
 
+    // Log authentication attempt
+    console.log("Attempting Google Sheets authentication...")
     try {
-      // Initialize Google Sheets authentication regardless of the outcome of credential validation
       await doc.useServiceAccountAuth({
         client_email: clientEmail,
         private_key: privateKey,
       })
+    } catch (authSetupError) {
+      console.error("Google Sheets Authentication Setup Error:", authSetupError)
+      return res.status(500).json({
+        error: "Failed to setup authentication with Google Sheets",
+        details: authSetupError.message,
+        step: "authentication_setup",
+        timestamp: new Date().toISOString(),
+      })
+    }
+
+    try {
+      console.log("Authentication successful, loading document...")
 
       await doc.loadInfo()
       const sheet = doc.sheetsByIndex[0]
+
+      console.log("Adding row to sheet...")
 
       await sheet.addRow({
         Timestamp: new Date().toISOString(),
@@ -83,12 +122,18 @@ export default async function handler(req, res) {
         Email: email,
       })
 
+      console.log("Row added successfully")
+
       return res.status(200).json({ success: true })
     } catch (authError) {
       console.error("Google Sheets Error:", authError)
+
+      // More detailed error response
       return res.status(500).json({
-        error: "Failed to authenticate with Google Sheets",
+        error: "Failed to interact with Google Sheets",
         details: authError.message,
+        step: "sheet_interaction",
+        timestamp: new Date().toISOString(),
       })
     }
   } catch (error) {
