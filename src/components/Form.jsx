@@ -4,9 +4,7 @@ import { X } from "lucide-react"
 import { useState } from "react"
 
 // Use the correct API URL based on the environment
-const API_URL = import.meta.env.DEV
-  ? "http://localhost:3001/api" // Match your Vercel dev server port
-  : "https://buliq.vercel.app/api"
+const API_URL = import.meta.env.DEV ? "http://localhost:3001/api" : "https://buliq.vercel.app/api"
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })
@@ -14,13 +12,23 @@ function Form({ isOpen, onClose }) {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
 
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     setError("")
 
     try {
-      console.log("Submitting form data:", formData)
+      console.log("Submitting to:", `${API_URL}/waitlist`)
+      console.log("Form data:", formData)
+
       const response = await fetch(`${API_URL}/waitlist`, {
         method: "POST",
         headers: {
@@ -41,7 +49,7 @@ function Form({ isOpen, onClose }) {
       }
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to submit. Please try again.")
+        throw new Error(data.error || data.details || "Failed to submit. Please try again.")
       }
 
       setSuccess(true)
@@ -60,14 +68,6 @@ function Form({ isOpen, onClose }) {
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
   }
 
   if (!isOpen) return null
