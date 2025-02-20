@@ -5,22 +5,14 @@ import { useState } from "react"
 
 // Use the correct API URL based on the environment
 const API_URL = import.meta.env.DEV
-  ? "http://localhost:3000" // Development API URL
-  : "https://buliq.vercel.app" // Production API URL
+  ? "http://localhost:3001/api" // Match your Vercel dev server port
+  : "https://buliq.vercel.app/api"
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -29,17 +21,13 @@ function Form({ isOpen, onClose }) {
 
     try {
       console.log("Submitting form data:", formData)
-      const response = await fetch(`${API_URL}/api/waitlist`, {
+      const response = await fetch(`${API_URL}/waitlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // Include credentials for CORS
         body: JSON.stringify(formData),
       })
-
-      console.log("Response status:", response.status)
-      console.log("Response headers:", response.headers)
 
       const responseText = await response.text()
       console.log("Raw response:", responseText)
@@ -49,11 +37,11 @@ function Form({ isOpen, onClose }) {
         data = JSON.parse(responseText)
       } catch (parseError) {
         console.error("Error parsing JSON:", parseError)
-        throw new Error(`Invalid response from server: ${responseText}`)
+        throw new Error(`Server error: ${responseText || "Please try again later"}`)
       }
 
       if (!response.ok) {
-        throw new Error(data.error || "Something went wrong")
+        throw new Error(data.error || "Failed to submit. Please try again.")
       }
 
       setSuccess(true)
@@ -64,14 +52,22 @@ function Form({ isOpen, onClose }) {
       }, 2000)
     } catch (err) {
       console.error("Submission error:", err)
-      if (err.message.includes("Failed to fetch")) {
-        setError("Unable to connect to the server. Please check if the server is running.")
-      } else {
-        setError(err.message || "Unable to join waitlist at this time. Please try again later.")
-      }
+      setError(
+        err.message.includes("Failed to fetch")
+          ? "Unable to connect to the server. Please check your internet connection."
+          : err.message || "Unable to join waitlist at this time. Please try again later.",
+      )
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
   if (!isOpen) return null
