@@ -1,7 +1,7 @@
 import { X } from "lucide-react"
 import { useState } from "react"
 
-const API_URL = import.meta.env.DEV ? "http://localhost:3001/api" : "https://buliq-landing-page.vercel.app/api"
+const API_URL = import.meta.env.DEV ? "http://localhost:3000/api" : "https://buliq.xyz/api"
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" })
@@ -23,44 +23,38 @@ function Form({ isOpen, onClose }) {
     setError("")
 
     try {
-      console.log("Submitting to:", `${API_URL}/waitlist`)
-      console.log("Form data:", formData)
-
       const response = await fetch(`${API_URL}/waitlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       })
 
-      const responseText = await response.text()
-      console.log("Raw response:", responseText)
-
-      let data
-      try {
-        data = JSON.parse(responseText)
-      } catch (parseError) {
-        console.error("Error parsing JSON:", parseError)
-        throw new Error(`Server error: ${responseText || "Please try again later"}`)
-      }
-
       if (!response.ok) {
-        throw new Error(data.error || data.details || "Failed to submit. Please try again.")
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || errorData.details || "Failed to submit. Please try again.")
       }
 
-      setSuccess(true)
-      setTimeout(() => {
-        onClose()
-        setSuccess(false)
-        setFormData({ name: "", email: "" })
-      }, 2000)
+      const data = await response.json()
+      
+      if (data.success) {
+        setSuccess(true)
+        setTimeout(() => {
+          onClose()
+          setSuccess(false)
+          setFormData({ name: "", email: "" })
+        }, 2000)
+      } else {
+        throw new Error(data.error || "Failed to submit. Please try again.")
+      }
     } catch (err) {
       console.error("Submission error:", err)
       setError(
         err.message.includes("Failed to fetch")
           ? "Unable to connect to the server. Please check your internet connection."
-          : err.message || "Unable to join waitlist at this time. Please try again later.",
+          : err.message || "Unable to join waitlist at this time. Please try again later."
       )
     } finally {
       setIsLoading(false)

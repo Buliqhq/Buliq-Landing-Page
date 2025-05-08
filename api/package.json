@@ -1,9 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +16,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "google-spreadsheet": "^3.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
