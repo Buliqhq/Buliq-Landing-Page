@@ -1,9 +1,6 @@
-"use client"
-
 import { X } from "lucide-react"
 import { useState } from "react"
 
-// Use the correct API URL based on the environment
 const API_URL = import.meta.env.DEV ? "http://localhost:3001/api" : "https://buliq-landing-page.vercel.app/api"
 
 function Form({ isOpen, onClose }) {
