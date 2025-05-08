@@ -3,7 +3,7 @@ import process from 'process'
 
 function setCorsHeaders(res) {
   res.setHeader("Access-Control-Allow-Credentials", true)
-  res.setHeader("Access-Control-Allow-Origin", "https://buliq.xyz")
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173")
   res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST")
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -76,8 +76,11 @@ export default async function handler(req, res) {
       await doc.loadInfo()
       const sheet = doc.sheetsByIndex[0]
 
+      const now = new Date();
+      const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
       await sheet.addRow({
-        Timestamp: new Date().toISOString(),
+        Timestamp: formattedDate,
         Name: name,
         Email: email,
       })
