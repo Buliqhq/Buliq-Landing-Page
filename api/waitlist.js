@@ -1,9 +1,10 @@
 import { GoogleSpreadsheet } from "google-spreadsheet"
+import process from 'process'
 
 function setCorsHeaders(res) {
   res.setHeader("Access-Control-Allow-Credentials", true)
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT")
+  res.setHeader("Access-Control-Allow-Origin", "https://buliq.xyz")
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST")
   res.setHeader(
     "Access-Control-Allow-Headers",
     "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
@@ -14,7 +15,6 @@ function cleanPrivateKey(key) {
   if (!key) return null
 
   let cleanKey = key.replace(/^["']|["']$/g, "")
-
   cleanKey = cleanKey.replace(/\\n/g, "\n")
 
   if (!cleanKey.includes("-----BEGIN PRIVATE KEY-----")) {
@@ -50,24 +50,10 @@ export default async function handler(req, res) {
     const privateKey = cleanPrivateKey(process.env.GOOGLE_SHEETS_PRIVATE_KEY)
     const sheetId = process.env.GOOGLE_SHEET_ID
 
-    console.log("Credentials check:", {
-      hasClientEmail: !!clientEmail,
-      hasPrivateKey: !!privateKey,
-      hasSheetId: !!sheetId,
-      clientEmail: clientEmail,
-      sheetId: sheetId,
-      privateKeyStart: privateKey ? privateKey.substring(0, 50) + "..." : "null",
-    })
-
     if (!clientEmail || !privateKey || !sheetId) {
       return res.status(500).json({
         error: "Server configuration error",
-        details: "Missing required credentials",
-        missing: {
-          clientEmail: !clientEmail,
-          privateKey: !privateKey,
-          sheetId: !sheetId,
-        },
+        details: "Missing required credentials"
       })
     }
 
@@ -82,8 +68,7 @@ export default async function handler(req, res) {
       console.error("Google Sheets Authentication Error:", authError)
       return res.status(500).json({
         error: "Google Sheets authentication failed",
-        details: authError.message,
-        type: authError.name,
+        details: authError.message
       })
     }
 
@@ -102,15 +87,14 @@ export default async function handler(req, res) {
       console.error("Google Sheets Error:", error)
       return res.status(500).json({
         error: "Google Sheets operation failed",
-        details: error.message,
-        type: error.name,
+        details: error.message
       })
     }
   } catch (error) {
     console.error("Request Error:", error)
     return res.status(500).json({
       error: "Failed to process request",
-      details: error.message,
+      details: error.message
     })
   }
 }
