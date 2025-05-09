@@ -1,26 +1,28 @@
-import { X } from "lucide-react"
-import { useState } from "react"
+import { X } from "lucide-react";
+import { useState } from "react";
 
-const API_URL = import.meta.env.DEV ? "http://localhost:3000/api" : "https://buliq.xyz/api"
+const API_URL = import.meta.env.DEV
+  ? "http://localhost:3000/api"
+  : "https://buliq.xyz/api";
 
 function Form({ isOpen, onClose }) {
-  const [formData, setFormData] = useState({ name: "", email: "" })
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState(false)
+  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     try {
       const response = await fetch(`${API_URL}/waitlist`, {
@@ -30,38 +32,43 @@ function Form({ isOpen, onClose }) {
         },
         credentials: "include",
         body: JSON.stringify(formData),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}))
-        throw new Error(errorData.error || errorData.details || "Failed to submit. Please try again.")
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error ||
+            errorData.details ||
+            "Failed to submit. Please try again."
+        );
       }
 
-      const data = await response.json()
-      
+      const data = await response.json();
+
       if (data.success) {
-        setSuccess(true)
+        setSuccess(true);
         setTimeout(() => {
-          onClose()
-          setSuccess(false)
-          setFormData({ name: "", email: "" })
-        }, 2000)
+          onClose();
+          setSuccess(false);
+          setFormData({ name: "", email: "" });
+        }, 2000);
       } else {
-        throw new Error(data.error || "Failed to submit. Please try again.")
+        throw new Error(data.error || "Failed to submit. Please try again.");
       }
     } catch (err) {
-      console.error("Submission error:", err)
+      console.error("Submission error:", err);
       setError(
         err.message.includes("Failed to fetch")
           ? "Unable to connect to the server. Please check your internet connection."
-          : err.message || "Unable to join waitlist at this time. Please try again later."
-      )
+          : err.message ||
+              "Unable to join waitlist at this time. Please try again later."
+      );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto">
@@ -75,16 +82,31 @@ function Form({ isOpen, onClose }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-20 p-6 md:p-8">
           <div className="flex flex-col items-center justify-center space-y-4 md:space-y-6">
-            <img src="/logo.png" alt="Buliq Logo" className="h-12 md:h-16 w-auto" />
-            <img src="/Group.png" alt="Human Only Illustration" className="w-52 sm:w-64 md:w-80 lg:w-96" />
+            <img
+              src="/logo.png"
+              alt="Buliq Logo"
+              className="h-12 md:h-16 w-auto"
+            />
+            <img
+              src="/Group.png"
+              alt="Human Only Illustration"
+              className="w-52 sm:w-64 md:w-80 lg:w-96"
+            />
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col justify-center w-full">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col justify-center w-full"
+          >
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4 md:mb-6 text-center md:text-left">
               Join the waitlist
             </h2>
 
-            {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">{error}</div>}
+            {error && (
+              <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
 
             {success && (
               <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-lg text-sm">
@@ -93,7 +115,9 @@ function Form({ isOpen, onClose }) {
             )}
 
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-medium mb-1">Full name</label>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Full name
+              </label>
               <input
                 type="text"
                 name="name"
@@ -107,7 +131,9 @@ function Form({ isOpen, onClose }) {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-medium mb-1">Email address</label>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Email address
+              </label>
               <input
                 type="email"
                 name="email"
@@ -157,8 +183,7 @@ function Form({ isOpen, onClose }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Form
-
+export default Form;
