@@ -2,8 +2,7 @@ import { X } from "lucide-react";
 import { useState } from "react";
 
 const API_URL = import.meta.env.DEV
-  ? "http://localhost:3000/api"
-  : "https://buliq.xyz/api";
+"https://buliq.xyz/api";
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" });
@@ -33,6 +32,7 @@ function Form({ isOpen, onClose }) {
         credentials: "include",
         body: JSON.stringify(formData),
       });
+
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
