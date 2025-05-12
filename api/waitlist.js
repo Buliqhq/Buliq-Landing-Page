@@ -1,16 +1,6 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import process from "process";
 
-function setCorsHeaders(res) {
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins in production
-  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-  );
-}
-
 function cleanPrivateKey(key) {
   if (!key) return null;
 
@@ -28,9 +18,29 @@ function cleanPrivateKey(key) {
 }
 
 export default async function handler(req, res) {
-  setCorsHeaders(res);
+  // Set CORS headers first, before any other processing
+  const origin = req.headers.origin;
+  const allowedOrigins = [
+    'http://localhost:5173',  // Development frontend
+    'https://buliq.xyz'       // Production frontend
+  ];
 
-  if (req.method === "OPTIONS") {
+  // Handle CORS for all requests
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+  } else {
+    res.status(403).json({ error: 'Not allowed by CORS' });
+    return;
+  }
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
