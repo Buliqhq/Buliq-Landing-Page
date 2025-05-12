@@ -1,8 +1,7 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 
-const API_URL = import.meta.env.DEV
-"https://buliq.xyz/api";
+const API_URL = "https://buliq.onrender.com/api";
 
 function Form({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: "", email: "" });
